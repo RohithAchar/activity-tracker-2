@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ActivityTracker</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="header" class="hidden">
+      <div class="header-inner">
+        <h1 class="logo">ActivityTracker</h1>
+        <div class="header-right">
+          <span id="header-user"></span>
+          <button class="btn btn-sm btn-outline" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Auth -->
+      <section id="page-auth" class="page">
+        <div class="auth-card">
+          <h2 id="auth-title">Sign In</h2>
+          <form id="auth-form" onsubmit="return handleAuth(event)">
+            <div class="form-group">
+              <label for="auth-email">Email</label>
+              <input type="email" id="auth-email" required placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label for="auth-password">Password</label>
+              <input type="password" id="auth-password" required placeholder="Enter password">
+            </div>
+            <div class="form-group hidden" id="auth-name-group">
+              <label for="auth-name">Display Name</label>
+              <input type="text" id="auth-name" placeholder="Your name">
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="auth-submit">Sign In</button>
+          </form>
+          <p class="auth-toggle">
+            <span id="auth-toggle-text">Don't have an account?</span>
+            <a href="#" onclick="toggleAuth()" id="auth-toggle-link">Sign Up</a>
+          </p>
+          <p id="auth-error" class="error hidden"></p>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section id="page-dashboard" class="page hidden">
+        <div class="page-header">
+          <h2>Activity Types</h2>
+          <button class="btn btn-primary" onclick="showCreateType()">+ New Activity</button>
+        </div>
+        <div id="type-list" class="card-grid"></div>
+      </section>
+
+      <!-- Create Activity Type -->
+      <section id="page-create-type" class="page hidden">
+        <div class="page-header">
+          <h2>Create Activity Type</h2>
+          <button class="btn btn-outline" onclick="showDashboard()">Back</button>
+        </div>
+        <div class="card">
+          <form id="create-type-form" onsubmit="return handleCreateType(event)">
+            <div class="form-group">
+              <label for="type-name">Name</label>
+              <input type="text" id="type-name" required placeholder="e.g. Running, Reading, Water">
+            </div>
+            <div class="form-group">
+              <label for="type-desc">Description</label>
+              <input type="text" id="type-desc" placeholder="Optional description">
+            </div>
+            <div class="form-group">
+              <label for="type-icon">Icon</label>
+              <input type="text" id="type-icon" placeholder="Optional icon name">
+            </div>
+            <div class="form-group">
+              <label>Custom Fields</label>
+              <div id="fields-container"></div>
+              <button type="button" class="btn btn-sm btn-outline" onclick="addField()">+ Add Field</button>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+            <p id="create-type-error" class="error hidden"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Activity Detail -->
+      <section id="page-detail" class="page hidden">
+        <div class="page-header">
+          <button class="btn btn-outline" onclick="showDashboard()">Back</button>
+          <h2 id="detail-title"></h2>
+          <button class="btn btn-primary" onclick="showCreateEntry()">+ Log Entry</button>
+        </div>
+        <div id="stats-card" class="card"></div>
+        <div id="entries-list" class="card"></div>
+      </section>
+
+      <!-- Create Entry -->
+      <section id="page-create-entry" class="page hidden">
+        <div class="page-header">
+          <h2>Log Entry</h2>
+          <button class="btn btn-outline" onclick="showDetail()">Back</button>
+        </div>
+        <div class="card">
+          <form id="create-entry-form" onsubmit="return handleCreateEntry(event)">
+            <div class="form-group">
+              <label for="entry-date">Date</label>
+              <input type="date" id="entry-date" required>
+            </div>
+            <div class="form-group">
+              <label for="entry-notes">Notes</label>
+              <textarea id="entry-notes" rows="2" placeholder="Optional notes"></textarea>
+            </div>
+            <div id="entry-fields-container"></div>
+            <button type="submit" class="btn btn-primary">Save Entry</button>
+            <p id="create-entry-error" class="error hidden"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
